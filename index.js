@@ -1,6 +1,6 @@
-const inquirer = require("inquirer");
-const chalk = require("chalk");
+import inquirer from "inquirer"
+import chalk from "chalk"
 
-const fs = require("fs");
+import fs from "fs"
 
-console.log("teste");
+console.log("test");
