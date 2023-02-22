@@ -23,9 +23,14 @@ function operation() {
     ])
     .then((retorno) => {
       const action = retorno["action"];
-      console.log(action);
+      action === "Criar Conta" ? message() : '';
     })
     .catch((err) => {
       console.log(`Erro ${err}`);
     });
+}
+
+function message() {
+  console.log(chalk.bgGreen.black("Parabéns por escolher nosso banco"));
+  console.log(chalk.green("Defina as opções de conta a seguir"));
 }
