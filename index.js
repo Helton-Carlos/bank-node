@@ -23,8 +23,9 @@ function operation() {
     ])
     .then((retorno) => {
       let action = retorno["action"];
-      action === "Criar Conta" ? message() : '';
-      action === "Sair" ? exitSession() : '';
+      action === "Criar Conta" ? message() : "";
+      action === "Depositar" ? deposit() : "";
+      action === "Sair" ? exitSession() : "";
     })
     .catch((err) => {
       console.log(`Erro ${err}`);
@@ -38,7 +39,7 @@ function message() {
   buildAccount();
 }
 
-function  exitSession(){
+function exitSession() {
   console.log(chalk.bgBlue.black("Obrigado por usar nosso banco!"));
   process.exit();
 }
@@ -70,4 +71,31 @@ function buildAccount() {
     .catch((err) => {
       console.log(`Erro catch ${err}`);
     });
+}
+
+function deposit() {
+  inquirer
+    .prompt([
+      {
+        name: "accountName",
+        message: "Qual o nome da sua conta?",
+      },
+    ])
+    .then((answer) => {
+      const accountName = answer["accountName"];
+
+      if (!checkAccount(accountName)) {
+        return deposit();
+      }
+    })
+    .catch((err) => console.log(err));
+}
+
+function checkAccount(accountName) {
+  if (!fs.existsSync(`accounts/${accountName}.json`)) {
+    console.log(chalk.bgRed.black("Essa conta não existe, escolha outra nome"));
+    return false;
+  }
+
+  return true;
 }
